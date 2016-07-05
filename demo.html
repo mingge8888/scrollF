@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/scrollF.js"></script>
+		<script>
+			//调用插件方法开始
+			$(function() {
+				var isHide = 0;
+				$(".abc").scrollF({
+					container: $("#elevator"),
+					containerSelector: "ul li",
+					selectorCallback: function(find, index) {
+						find.removeClass("current").eq(index).addClass("current");
+					},
+					resizeCallback: function() {},
+					proportion: .4,
+					error: function(find, index) {
+						find && find.removeClass("current");
+						if (!isHide) {
+							this.fadeOut();
+							isHide = 1;
+						}
+					},
+					time: 1000,
+					success: function(find, index) {
+						if (isHide) {
+							this.fadeIn();
+							isHide = 0;
+						}
+						if (find) {
+							find.removeClass("current").eq(index).addClass("current");
+						}
+					}
+				});
+				//调用插件方法结束
+			});
+		</script>
+		<style>
+			.elevator {
+				width: 30px;
+				background: #fff;
+				position: fixed;
+				left: 100px;
+				top: 0;
+			}
+			
+			.elevator ul,
+			.elevator ul li {
+				width: 100%;
+			}
+			
+			.elevator ul li {
+				height: 30px;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.elevator ul li a {
+				width: 100%;
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				color: #333;
+				margin-top: -1px;
+				background: rgba(0, 0, 0, 0) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAMAAAAM7l6QAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2xpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFNDg5NURBNDY3MjA2ODExODIyQUVDNTgwRDU1MkZBQiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo1N0M3MTMzQTlBRTQxMUU0OEY2QkNDMkMzNDJCRDdGNiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1N0M3MTMzOTlBRTQxMUU0OEY2QkNDMkMzNDJCRDdGNiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6ODBkOTE3NzktZTE1Yi0yNTRkLTljYzMtOGVjNmE4ZTAyMjRjIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNzkxODUyODJEQjExRTQ4RkM0REQwQTBFRkQyNTY2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+3tRxHgAAAAlQTFRFwsLCycnJ////r0pOrgAAAAN0Uk5T//8A18oNQQAAAB5JREFUeNpiYIIABhTIyAQXxgtGpUelR6VpKw0QYACUOgb65Nz92gAAAABJRU5ErkJggg==) no-repeat center bottom;
+			}
+			
+			.elevator ul li:first-child a {
+				background: none;
+			}
+			
+			.elevator ul li a:hover {
+				background: #1549aa;
+				color: #fff;
+			}
+			
+			.elevator ul li .class-name {
+				display: none;
+				color: #1549aa;
+			}
+			
+			.elevator ul li .grade-name {
+				font-size: 14px;
+			}
+			
+			.elevator ul li.current .grade-name,
+			.elevator ul li:hover .grade-name {
+				display: none;
+			}
+			
+			.elevator ul li.current .class-name,
+			.elevator ul li:hover .class-name {
+				display: block;
+			}
+			
+			.abc {
+				width: 100%;
+				height: 400px;
+				background: #00B492;
+			}
+			
+			.abc:nth-child(even) {
+				background: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="abc">1</div>
+		<div class="abc">2</div>
+		<div class="abc">3</div>
+		<div class="abc">4</div>
+		<div class="abc">5</div>
+		<div class="abc">6</div>
+		<div class="abc">7</div>
+		<div class="abc">8</div>
+		<div class="abc">9</div>
+		<div class="abc">10</div>
+		<div class="abc">11</div>
+		<div class="abc">12</div>
+		<div class="abc">13</div>
+		<div class="abc">14</div>
+
+		<div class="elevator" id="elevator">
+			<ul>
+				<!--current-->
+				<li>
+					<a href="javascript:;" class="grade-name">1F</a>
+					<a href="javascript:;" class="class-name">服饰</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">2F</a>
+					<a href="javascript:;" class="class-name">帅哥</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">3F</a>
+					<a href="javascript:;" class="class-name">美妆</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">4F</a>
+					<a href="javascript:;" class="class-name">家电</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">5F</a>
+					<a href="javascript:;" class="class-name">运行</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">6F</a>
+					<a href="javascript:;" class="class-name">居家</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">7F</a>
+					<a href="javascript:;" class="class-name">母婴</a>
+				</li>
+
+				<li>
+					<a href="javascript:;" class="grade-name">8F</a>
+					<a href="javascript:;" class="class-name">食品</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">9F</a>
+					<a href="javascript:;" class="class-name">图书</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">10F</a>
+					<a href="javascript:;" class="class-name">车品</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="grade-name">11F</a>
+					<a href="javascript:;" class="class-name">服务</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>
